@@ -1328,11 +1328,11 @@ def add_missing_columns(
         triangulation_distances[column] = pd.NA
         # Create a mapping from unique_region to tissue in metadata
         region_to_tissue = pd.Series(
-            metadata[column].values, index=metadata["unique_region"]
+            metadata[column].values, index=metadata[shared_column]
         ).to_dict()
 
         # Apply this mapping to the triangulation_distances dataframe to create/update the tissue column
-        triangulation_distances[column] = triangulation_distances["unique_region"].map(
+        triangulation_distances[column] = triangulation_distances[shared_column].map(
             region_to_tissue
         )
 
@@ -1462,7 +1462,7 @@ def identify_interactions(
         num_iterations=num_iterations,
     )
 
-    metadata = df_input.loc[:, ["unique_region", comparison]].copy()
+    metadata = df_input.loc[:, [region, comparison]].copy()
     # Reformat observed dataset
     triangulation_distances_long = add_missing_columns(
         triangulation_distances, metadata, shared_column=region
