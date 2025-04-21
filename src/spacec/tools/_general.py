@@ -1373,6 +1373,7 @@ def identify_interactions(
     cell_type,
     region,
     comparison,
+    triDist_keyname=None,
     min_observed=10,
     distance_threshold=128,
     num_cores=None,
