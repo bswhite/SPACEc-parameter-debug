@@ -1377,7 +1377,6 @@ def identify_interactions(
     distance_threshold=128,
     num_cores=None,
     num_iterations=1000,
-    key_name=None,
     correct_dtype=False,
     aggregate_per_cell=True,
 ):
@@ -1400,8 +1399,6 @@ def identify_interactions(
         Column name for region.
     comparison : str
         Column name for comparison.
-    iTriDist_keyname : str, optional
-        Key name for iterative triangulation distances, by default None
     triDist_keyname : str, optional
         Key name for triangulation distances, by default None
     min_observed : int, optional
@@ -1412,8 +1409,6 @@ def identify_interactions(
         Number of cores to use for computation, by default None
     num_iterations : int, optional
         Number of iterations for computation, by default 1000
-    key_name : str, optional
-        Key name for output, by default None
     correct_dtype : bool, optional
         Whether to correct data type or not, by default False
 
@@ -1444,7 +1439,7 @@ def identify_interactions(
         num_cores=num_cores,
         correct_dtype=correct_dtype,
     )
-    if key_name is None:
+    if triDist_keyname is None:
         triDist_keyname = "triDist"
     adata.uns[triDist_keyname] = triangulation_distances
     print("Save triangulation distances output to anndata.uns " + triDist_keyname)
