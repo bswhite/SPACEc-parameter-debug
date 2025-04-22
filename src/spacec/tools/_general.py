@@ -1415,8 +1415,11 @@ def identify_interactions(
 
     Returns
     -------
-    DataFrame
-        DataFrame with p-values and logfold changes for interactions.
+    dict
+        Dictionary with the following keys and values:
+          "distance_pvals": DataFrame with p-values and logfold changes for interactions.
+          "triangulation_distances_observed": DataFrame with the observed cell-cell distances computed from the triangulation
+          "triangulation_distances_iterated": DataFrame with the cell-cell distances computed from the triangulation following random iteration
     """
     df_input = pd.DataFrame(adata.obs)
     if cellid in df_input.columns:
@@ -1546,11 +1549,11 @@ def identify_interactions(
     # create dictionary for the results
     triangulation_distances_dict = {
         "distance_pvals": distance_pvals,
-        "triangulation_distances_observed": iterated_triangulation_distances_long,
-        "triangulation_distances_iterated": triangulation_distances_long,
+        "triangulation_distances_observed": triangulation_distances_long,
+        "triangulation_distances_iterated": iterated_triangulation_distances_long,
     }
 
-    return distance_pvals, triangulation_distances_dict
+    return triangulation_distances_dict
 
 
 def adata_cell_percentages(adata, column_percentage="cell_type"):
